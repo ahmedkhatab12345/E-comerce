@@ -51,7 +51,7 @@ class BrandsController extends Controller
             if ($request->has('photo')) {
                 $destnation= 'images/brands/'.$brands->photo;
                 if(File::exists($destnation)){
-                    File::delete($destnation);
+                File::delete($destnation);
                 }
                 $file=$request->file('photo');
                 $extention=$file->getClientOriginalExtension();

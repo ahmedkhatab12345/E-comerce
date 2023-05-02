@@ -22,7 +22,7 @@
             <img
             style="width: 200px; height: 200px; margin-left :50px;"
             src="{{asset('images/brands/'.$brands->photo)}}"
-            class="rounded-circle  height-150" alt="صورة القسم  ">
+            class="rounded-circle  height-150" alt="صورة البراند  ">
             </div>
         </div>
 
@@ -40,7 +40,7 @@
 
         <div class="form-group col-md-6" style="margin-top :15px;">
             <label>Photo</label>
-            <input type="file" id="file" name="photo">
+            <input type="file" id="file" name="photo" class="form-control">
             </div>
         
         <div class="form-group" style="margin-top :15px;">

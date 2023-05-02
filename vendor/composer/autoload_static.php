@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitacfbef6e80a7a2f4440ac5d8138b2164
+class ComposerStaticInita201df452eb4b862700b81e7e6c5adba
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -38,6 +38,7 @@ class ComposerStaticInitacfbef6e80a7a2f4440ac5d8138b2164
         'ed962a97bd972bc82007176b647d4e36' => __DIR__ . '/..' . '/facade/ignition/src/helpers.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
+        '0b47d6d4a00ca9112ba3953b49e7c9a4' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/helper.php',
         '101b35f72e0ccb1b5ef72aa86bba3ef9' => __DIR__ . '/..' . '/yoeunes/toastr/src/helpers.php',
     );
 
@@ -49,6 +50,7 @@ class ComposerStaticInitacfbef6e80a7a2f4440ac5d8138b2164
         'Y' => 
         array (
             'Yoeunes\\Toastr\\' => 15,
+            'Yajra\\DataTables\\' => 17,
         ),
         'W' => 
         array (
@@ -193,6 +195,10 @@ class ComposerStaticInitacfbef6e80a7a2f4440ac5d8138b2164
         'Yoeunes\\Toastr\\' => 
         array (
             0 => __DIR__ . '/..' . '/yoeunes/toastr/src',
+        ),
+        'Yajra\\DataTables\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src',
         ),
         'Whoops\\' => 
         array (
@@ -545,6 +551,7 @@ class ComposerStaticInitacfbef6e80a7a2f4440ac5d8138b2164
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\Dashboard\\BrandsController' => __DIR__ . '/../..' . '/app/Http/Controllers/Dashboard/BrandsController.php',
+        'App\\Http\\Controllers\\Dashboard\\CategoriesController' => __DIR__ . '/../..' . '/app/Http/Controllers/Dashboard/CategoriesController.php',
         'App\\Http\\Controllers\\Dashboard\\DashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/Dashboard/DashboardController.php',
         'App\\Http\\Controllers\\Dashboard\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Dashboard/LoginController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
@@ -558,8 +565,12 @@ class ComposerStaticInitacfbef6e80a7a2f4440ac5d8138b2164
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Http\\Requests\\LoginRequest' => __DIR__ . '/../..' . '/app/Http/Requests/LoginRequest.php',
         'App\\Http\\Requests\\ProfileRequest' => __DIR__ . '/../..' . '/app/Http/Requests/ProfileRequest.php',
+        'App\\Http\\Requests\\brandRequest' => __DIR__ . '/../..' . '/app/Http/Requests/brandRequest.php',
+        'App\\Http\\Requests\\categoryRequest' => __DIR__ . '/../..' . '/app/Http/Requests/categoryRequest.php',
         'App\\Http\\Requests\\changPasswordRequest' => __DIR__ . '/../..' . '/app/Http/Requests/changPasswordRequest.php',
         'App\\Models\\Admin' => __DIR__ . '/../..' . '/app/Models/Admin.php',
+        'App\\Models\\Brand' => __DIR__ . '/../..' . '/app/Models/Brand.php',
+        'App\\Models\\Category' => __DIR__ . '/../..' . '/app/Models/Category.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
@@ -5730,6 +5741,22 @@ class ComposerStaticInitacfbef6e80a7a2f4440ac5d8138b2164
         'Whoops\\Util\\Misc' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Util/Misc.php',
         'Whoops\\Util\\SystemFacade' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Util/SystemFacade.php',
         'Whoops\\Util\\TemplateHelper' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Util/TemplateHelper.php',
+        'Yajra\\DataTables\\ApiResourceDataTable' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/ApiResourceDataTable.php',
+        'Yajra\\DataTables\\CollectionDataTable' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/CollectionDataTable.php',
+        'Yajra\\DataTables\\Contracts\\DataTable' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/Contracts/DataTable.php',
+        'Yajra\\DataTables\\Contracts\\Formatter' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/Contracts/Formatter.php',
+        'Yajra\\DataTables\\DataTableAbstract' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/DataTableAbstract.php',
+        'Yajra\\DataTables\\DataTables' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/DataTables.php',
+        'Yajra\\DataTables\\DataTablesServiceProvider' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/DataTablesServiceProvider.php',
+        'Yajra\\DataTables\\EloquentDataTable' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/EloquentDataTable.php',
+        'Yajra\\DataTables\\Exceptions\\Exception' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/Exceptions/Exception.php',
+        'Yajra\\DataTables\\Facades\\DataTables' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/Facades/DataTables.php',
+        'Yajra\\DataTables\\Processors\\DataProcessor' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/Processors/DataProcessor.php',
+        'Yajra\\DataTables\\Processors\\RowProcessor' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/Processors/RowProcessor.php',
+        'Yajra\\DataTables\\QueryDataTable' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/QueryDataTable.php',
+        'Yajra\\DataTables\\Utilities\\Config' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/Utilities/Config.php',
+        'Yajra\\DataTables\\Utilities\\Helper' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/Utilities/Helper.php',
+        'Yajra\\DataTables\\Utilities\\Request' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/Utilities/Request.php',
         'Yoeunes\\Toastr\\Facades\\Toastr' => __DIR__ . '/..' . '/yoeunes/toastr/src/Facades/Toastr.php',
         'Yoeunes\\Toastr\\Toastr' => __DIR__ . '/..' . '/yoeunes/toastr/src/Toastr.php',
         'Yoeunes\\Toastr\\ToastrBuilder' => __DIR__ . '/..' . '/yoeunes/toastr/src/ToastrBuilder.php',
@@ -5742,10 +5769,10 @@ class ComposerStaticInitacfbef6e80a7a2f4440ac5d8138b2164
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitacfbef6e80a7a2f4440ac5d8138b2164::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitacfbef6e80a7a2f4440ac5d8138b2164::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitacfbef6e80a7a2f4440ac5d8138b2164::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitacfbef6e80a7a2f4440ac5d8138b2164::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInita201df452eb4b862700b81e7e6c5adba::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInita201df452eb4b862700b81e7e6c5adba::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInita201df452eb4b862700b81e7e6c5adba::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInita201df452eb4b862700b81e7e6c5adba::$classMap;
 
         }, null, ClassLoader::class);
     }

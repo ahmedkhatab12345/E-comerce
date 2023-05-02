@@ -22,6 +22,9 @@ style="margin-right: 50px; padding =30px; border:solid 2px #2794EB; border-radiu
         <div class="form-group col-md-8" style="margin-top :15px;">
             <label>Name</label>
             <input type="text" name="name" class="form-control" >
+            @error('name')
+            <span class="text-danger">{{$message}}</span>
+            @enderror
         </div>
 
         
@@ -29,11 +32,14 @@ style="margin-right: 50px; padding =30px; border:solid 2px #2794EB; border-radiu
         <div class="form-group col-md-8" style="margin-top :15px;">
             <label>Description</label>
             <input type="text" name="description" class="form-control">
+            @error('description')
+            <span class="text-danger">{{$message}}</span>
+            @enderror
         </div>
 
         <div class="form-group col-md-6" style="margin-top :15px;">
             <label>Photo</label>
-            <input type="file" id="file" name="photo">
+            <input type="file" id="file" name="photo" class="form-control">
             </div>
         
         <div class="form-group" style="margin-top :15px;">

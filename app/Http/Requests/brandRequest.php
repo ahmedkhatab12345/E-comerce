@@ -26,6 +26,7 @@ class brandRequest extends FormRequest
         return [
             'name' => 'required',
             'photo' => 'required',
+            'description'=>  'required',
         ];
     }
 
@@ -34,6 +35,7 @@ class brandRequest extends FormRequest
         return [
             'name.required' => ' اسم البراند مطلوب.',
             'photo.required' => '  صوره البراند مطلوبه.',
+            'description.required' => '  وصف البراند مطلوب.',
         ];
     }
 }
