@@ -1,58 +1,99 @@
-@extends('layouts.dashboard.app')
 
-@section('content')
+<link rel="stylesheet" href="{{url('/')}}/assets/cssbundle/dropify.min.css">
 
-<div class="content-wrapper">
-
-<div class="box box-primary w-50 p-3" style="margin-right: 50px; padding =30px; border:solid 2px #2794EB; border-radius: 25px;">
-
-<div class="box-header">
-    <h2 class="box-title text-center">Edit Brand</h2>
-</div><!-- end of box header -->
-
-<div class="box-body"  style="padding-right:30px;">
-
-
-    <form action="{{route('admin.brands.update',$brands -> id)}}" method="POST" enctype="multipart/form-data" >
+    <form  id="brandForm" method="POST" enctype="multipart/form-data" >
 
         {{ csrf_field() }}
-        {{ method_field('post') }}
-        <div class="form-group">
-            <div class="text-center">
-            <img
-            style="width: 200px; height: 200px; margin-left :50px;"
-            src="{{asset('images/brands/'.$brands->photo)}}"
-            class="rounded-circle  height-150" alt="صورة البراند  ">
-            </div>
-        </div>
-
-        <div class="form-group col-md-8">
+        
+            <div class="form-group col-md-9" style="margin-right: 50px;">
             <label>Name</label>
-            <input type="text" name="name" class="form-control"  value="{{$brands->name}}">
+            <input type="text" name="name" class="form-control  @error('name') is-invalid @enderror"  value="{{$brands->name}}">
+            <input type="hidden" value="{{$brands->id}}" name="brand_id" id="brand_id">
+            <small id="name_error" class="form-text text-danger"></small>
+
+                        @error('name')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror  
         </div>
-
-        
-
-        <div class="form-group col-md-8" style="margin-top :15px;">
+        <div class="form-group col-md-9" style="margin-right: 50px;">
             <label>Description</label>
-            <input type="text" name="description" class="form-control" value="{{$brands->description}}">
-        </div>
+            <input type="text" name="description" class="form-control @error('description') is-invalid @enderror" 
+            value="{{$brands->description}}">
+            <small id="description_error" class="form-text text-danger"></small>
 
-        <div class="form-group col-md-6" style="margin-top :15px;">
+            @error('description')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+        </div>
+        <div class="form-group col-md-10" style="margin-right: 50px;">
             <label>Photo</label>
-            <input type="file" id="file" name="photo" class="form-control">
+            <input type="file" id="file" name="photo" class="dropify @error('photo') is-invalid @enderror" 
+            id="dropify-event" data-default-file="{{asset('images/brands/'.$brands->photo)}}">
+            <small id="photo_error" class="form-text text-danger"></small>
+
+            @error('photo')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
         
-        <div class="form-group" style="margin-top :15px;">
-            <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> Update </button>
+        <div class="form-group"   style="text-align:center;">
+            <button type="submit" id="saveBtn" name="save" 
+            style="margin-top: 20px; margin-bottom: 20px; "class="btn btn-primary"><i class="fa fa-plus"></i> Update </button>
         </div>
 
-    </form><!-- end of form -->
+    </form>
+    <script src="{{url('/')}}/assets/js/bundle/dropify.bundle.js"></script>
+<script>
+        $(document).on('click', '#saveBtn', function (e) {
+            e.preventDefault();
+            var formData = new FormData($('#brandForm')[0]);
+            $.ajax({
+                type: 'post',
+                enctype: 'multipart/form-data',
+                url: "{{route('admin.brands.update')}}",
+                data: formData,
+                processData: false,
+                contentType: false,
+                cache: false,
+                success: function (data) {
+                    if(data.status == true){
+                        $('#success_msg').show();
+                        location.reload();
+                    }
+                }, error: function (reject) {
+                    var response = $.parseJSON(reject.responseText);
+                    $.each(response.errors, function (key, val) {
+                        $("#" + key + "_error").text(val[0]);
+                    });
+                }
+            });
+        });
 
-</div><!-- end of box body -->
+    $(function() {
+      $('.dropify').dropify();
+      var drEvent = $('#dropify-event').dropify();
+      drEvent.on('dropify.beforeClear', function(event, element) {
+        return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
+      });
+      drEvent.on('dropify.afterClear', function(event, element) {
+        alert('File deleted');
+      });
+      $('.dropify-fr').dropify({
+        messages: {
+          default: 'Glissez-dÃ©posez un fichier ici ou cliquez',
+          replace: 'Glissez-dÃ©posez un fichier ou cliquez pour remplacer',
+          remove: 'Supprimer',
+          error: 'DÃ©solÃ©, le fichier trop volumineux'
+        }
+      });
+    });
+  </script>
 
-</div><!-- end of box -->
-</div><!-- end of content wrapper -->
 
-
-@endsection
+    

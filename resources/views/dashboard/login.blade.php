@@ -81,11 +81,14 @@
 <label class="form-label">Email address</label>
 <input type="email" class="form-control form-control-lg @error('email') is-invalid @enderror" name="email" 
 placeholder="name@example.com" id="email" data-validation="required" data-validation-required="required">
-@error('email')
-<div class="invalid-feedback">{{ $message }}</div>
-@enderror
+  @error('email')
+    <span class="invalid-feedback" role="alert">
+    <strong>{{ $message }}</strong>
+    </span>
+  @enderror
 </div>
 </div>
+
 <div class="col-12">
 <div class="mb-2">
 <div class="form-label">
@@ -93,17 +96,16 @@ placeholder="name@example.com" id="email" data-validation="required" data-valida
 </span>
 </div>
 <input class="form-control form-control-lg @error('password') is-invalid @enderror" type="password" name="password" 
-maxlength="10" placeholder="Enter the password"  data-validation="required" data-validation-required="required>
+maxlength="10" placeholder="Enter the password"  data-validation="required" data-validation-required="required">
 @error('password')
-<div class="invalid-feedback">{{ $message }}</div>
-@enderror
+    <span class="invalid-feedback" role="alert">
+    <strong>{{ $message }}</strong>
+    </span>
+  @enderror
 </div>
 </div>
 <div class="col-12">
-<div class="form-check">
-<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-<label class="form-check-label" for="flexCheckDefault"> Remember me </label>
-</div>
+
 </div>
 <div class="col-12 text-center mt-4">
 <button type="submit" class="btn btn-lg btn-block btn-dark lift text-uppercase" title="">SIGN IN</button>

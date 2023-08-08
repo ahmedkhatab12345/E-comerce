@@ -24,7 +24,21 @@ class categoryRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|unique:categories',
+            'description' => 'required',
+            'photo'=>  'required',
+
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => ' اسم الكاتيجوري مطلوب.',
+            'name.unique' => ' اسم الكاتيجوري موجود من قبل.',
+            'description.required' => '  وصف الكاتيجوري مطلوب.',
+            'photo.required' => '  صوره الكاتيجوري مطلوبه.',
+
         ];
     }
 }

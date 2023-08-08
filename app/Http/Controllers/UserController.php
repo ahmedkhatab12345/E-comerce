@@ -25,15 +25,5 @@ class UserController extends Controller
      */
     public function data(Request $request)
     {
-        $data = User::orderBy('id', 'desc')
-            ->get();
-        
-        return Datatables::of($data)
-                ->addIndexColumn()
-                ->addColumn('action', function($row) {
-                       return '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
-                })
-                ->rawColumns(['action'])
-                ->make(true);
     }
 }

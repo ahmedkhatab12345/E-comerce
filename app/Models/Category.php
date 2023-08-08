@@ -22,4 +22,13 @@ class Category extends Model
     {
         return $this->hasMany(\App\Models\Category::class, 'parent_id','id');
     }
+    public function product()
+    {
+        return $this->hasMany(\App\Models\Product::class, 'category_id');
+    }
+    
+    public static function getChildByParentId($id){
+        return Category::where('parent_id',$id)->pluck('name','id');
+    }
+    
 }

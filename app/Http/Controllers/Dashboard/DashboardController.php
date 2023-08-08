@@ -30,11 +30,10 @@ class DashboardController extends Controller
     // 1- update data profile
     public function update_data(ProfileRequest $request){
         //dd($request->all());
-        try {
-
+       
         $admin=$request->all();
         $user=Admin::FindOrFail(Auth::user()->id);
-        $user ->update($admin);
+       $update= $user ->update($admin);
         if ($request->has('photo')) {
             $destnation= 'images/admins/'.$user->photo;
             if(File::exists($destnation)){
@@ -47,14 +46,18 @@ class DashboardController extends Controller
             $user->photo=$file_name;
             $user->update();
         }
-        
+        if($update)
+        return response()->json([
+          'status' => true,
+          'msg' => 'تم الحفظ بنجاح',
+      ]);
+        else
+        return response()->json([
+          'status' => false,
+          'msg' => 'فشل الحفظ',
+      ]);
 
-        return redirect()->back()->with(['success' => 'تم التحديث بنجاح']);
-
-        }catch(Exception $e ){
-            toastr()->error('An error has occurred please try again later.');
-            return redirect()->route('myprofile');
-        }
+        // return redirect()->back()->with(['success' => 'تم التحديث بنجاح']);
     
     }
 /*
@@ -72,14 +75,9 @@ class DashboardController extends Controller
         }
     }
 */
-public function changePassword(Request $request)
+public function changePassword(changPasswordRequest $request)
 {
-    /*
-    $request->validate([
-        'current_password' => ['required','string','min:8'],
-        'password' => ['required', 'string', 'min:8', 'confirmed']
-    ]);*/
-
+    try{
     $currentPasswordStatus = Hash::check($request->current_password, auth()->user()->password);
     if($currentPasswordStatus){
 
@@ -93,6 +91,9 @@ public function changePassword(Request $request)
 
         return redirect()->back()->with('message','Current Password does not match with Old Password');
     }
+} catch (Exception $e) {
+    return redirect()->back()->with('message','Current Password does not match with Old Password');
+}
 }
 
 }

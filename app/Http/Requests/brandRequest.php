@@ -24,7 +24,7 @@ class brandRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
+            'name' => 'required|unique:brands',
             'photo' => 'required',
             'description'=>  'required',
         ];
@@ -34,6 +34,7 @@ class brandRequest extends FormRequest
     {
         return [
             'name.required' => ' اسم البراند مطلوب.',
+            'name.unique' => ' اسم البراند موجود من قبل.',
             'photo.required' => '  صوره البراند مطلوبه.',
             'description.required' => '  وصف البراند مطلوب.',
         ];

@@ -18,7 +18,7 @@ class LoginController extends Controller
         return view('dashboard.register');
     }
 
-    public function register(LoginRequest $request  ){
+    public function register(Request $request  ){
         //dd($request->all());
 
         // save photo

@@ -5,9 +5,10 @@
 $index=0
 @endphp
 <div >
-<table class="table" >
+<table class="table" id="table_id" >
 <div class="col-md-6"style="margin-bottom: 25px;">        
-        <a href="{{ route('admin.brands.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i><h7> Add Brand </h7></a>
+        <a href="{{ route('brands.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i><h7> Add Brand </h7></a>
+
     </div>
   <thead class="thead-dark">
     <tr>
@@ -19,22 +20,104 @@ $index=0
     </tr>
   </thead>
   <tbody>
-  @foreach ($brands as $brand)
-    <tr>
-      <th scope="row">{{$index=$index+1}}</th>
-      <td>{{ $brand->name }}</td>
-      <td>{{ $brand->description }}</td>
-      <td><img style="width: 150px; height: 100px;" src="{{asset('images/brands/'.$brand->photo)}}"></td>
-      <td>
-          <a href="{{ route('admin.brands.edit',$brand ->id) }}"
-             class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">Edit</a>
-          <a href="{{route('admin.brands.delete',$brand->id)}}"
-             class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">DElete</a>
-      </td>
-    </tr>
-    @endforeach
+ 
   </tbody>
 </table>
 </div>
-
+ <!-- edit_brand -->
+ <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">  
+    <div class="modal-dialog">
+        <div class="modal-content"  style="border:solid 2px #2794EB; border-radius: 25px;">
+            <div class="modal-header">
+            <button type="button" class="btn btn-danger btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h2 class="modal-title"id="exampleModalLabel">Edit Brand</h2>
+            </div><!-- end of box header -->
+          
+                <div id="editBrand"></div>
+                <div class="alert alert-success" id="success_msg" style="display: none;">
+            تم الحفظ بنجاح
+            </div>
+        </div><!-- end of box body -->
+    </div><!-- end of box -->
+</div><!-- end of content wrapper -->
+<!-- endEdit_brand -->
 @endsection
+@push('javascripts')
+    <script type="text/javascript">
+        $(function() {
+            var table = $('#table_id').DataTable({
+             
+                processing: true,
+                serverSide: true,
+                order:[
+                  [0,"desc"]
+                ],
+                ajax: "{{ Route('admin.brands.datatable') }}",
+                columns: [
+                    {
+                        data: 'id',
+                        name: 'id'
+                    },
+                    {
+                        data: 'name',
+                        name: 'name'
+                    },
+                    {
+                        data: 'description',
+                        name: 'description',
+                    },
+                    {
+                        data: 'photo',
+                        name: 'photo',
+                        
+                    },
+              
+                    {
+                        data: 'action',
+                        name: 'action',
+                        
+
+                    }
+                ]
+            });
+
+        });
+        $(document).on('click', '.delete', function(){
+        var id = $(this).attr('id');
+        if(confirm("Are you sure you want to Delete this data?"))
+        {
+            $.ajax({
+                url:"{{route('brands.destroy', ':id')}}",
+                mehtod:"delete",
+                data:{id:id},
+                success:function(data)
+                {
+                    alert(data);
+                    $('#table_id').DataTable().ajax.reload();
+                }
+            })
+        }
+        else
+        {
+            return false;
+        }
+    }); 
+
+    $(document).ready(function(){
+    $(document).on('click', '.edit', function(){
+        var brand_id = $(this).attr('id');
+        // alert(brand_id);
+        $('#editModal').modal('show');
+        $.ajax({
+            type:"GET",
+            url:"/admin/brands/edit-brands/"+brand_id,
+            success:function(response) {
+                $("body #editBrand").html(response.return_data);
+               
+            }
+        });
+     
+    }); 
+});
+    </script>
+@endpush

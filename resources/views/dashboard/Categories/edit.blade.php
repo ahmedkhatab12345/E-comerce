@@ -1,58 +1,108 @@
-@extends('layouts.dashboard.app')
+<link rel="stylesheet" href="{{url('/')}}/assets/cssbundle/dropify.min.css">
 
-@section('content')
+    <form  id="categoryForm" method="POST" enctype="multipart/form-data" >
+   
+@csrf
+<div class="form-group col-md-9"  style="margin-right: 50px;">
+    <label>Name</label>
+    <input type="hidden" value="{{$categories->id}}" name="category_id" id="category_id">
+    <input type="text" name="name" class="form-control  @error('name') is-invalid @enderror"
+      value="{{$categories->name}}">
+      @error('name')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
+</div>
 
-<div class="content-wrapper">
-
-<div class="box box-primary w-50 p-3" style="margin-right: 50px; padding =30px; border:solid 2px #2794EB; border-radius: 25px;">
-
-<div class="box-header">
-    <h2 class="box-title text-center">Edit Category</h2>
-</div><!-- end of box header -->
-
-<div class="box-body"  style="padding-right:30px;">
-
-
-    <form action="{{route('admin.categories.update',$categories -> id)}}" method="POST" enctype="multipart/form-data" >
-
-        {{ csrf_field() }}
-        {{ method_field('post') }}
-        <div class="form-group">
-            <div class="text-center">
-            <img
-            style="width: 200px; height: 200px; margin-left :50px;"
-            src="{{asset('images/categories/'.$categories->photo)}}"
-            class="rounded-circle  height-150" alt="صورة القسم  ">
+<div class="form-group col-md-9" style="margin-right: 50px;">
+            <label>Sub category of</label>
+                <select  class="form-control @error('parent_id') is-invalid @enderror" name="parent_id">
+                    <option value="">Main Category</option>
+                    @foreach($categories as $category)
+                    <option value="{{$category->id??null}}">{{$category->name??'not found'}}</option>
+                    @endforeach
+                </select>
+                <small id="parent_id_error" class="form-text text-danger"></small>
+                @error('parent_id')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
-        </div>
+<div class="form-group col-md-9"  style="margin-right: 50px;">
+    <label>Description</label>
+    <input type="text" name="description" class="form-control  @error('description') is-invalid @enderror"
+     value="{{$categories->description}}">
+     @error('description')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
+</div>
 
-        <div class="form-group col-md-8">
-            <label>Name</label>
-            <input type="text" name="name" class="form-control"  value="{{$categories->name}}">
-        </div>
+<div class="form-group col-md-10"  style="margin-right: 50px;">
+    <label>Photo</label>
+    <input type="file" id="file" name="photo" class="dropify @error('parent_id') is-invalid @enderror" 
+    data-default-file="{{asset('images/categories/'.$categories->photo)}}">
+    @error('photo')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
+    </div>
 
-        
+<div class="form-group" style="text-align:center; margin-top: 20px; margin-bottom: 20px; ">
+    <button type="submit" id="saveBtn" class="btn btn-primary"><i class="fa fa-plus"></i> Update </button>
+</div>
 
-        <div class="form-group col-md-8" style="margin-top :15px;">
-            <label>Description</label>
-            <input type="text" name="description" class="form-control" value="{{$categories->description}}">
-        </div>
+</form><!-- end of form -->
+<script src="{{url('/')}}/assets/js/bundle/dropify.bundle.js"></script>
+<script>
+     $(document).on('click', '#saveBtn', function (e) {
+            e.preventDefault();
+            var formData = new FormData($('#categoryForm')[0]);
+            $.ajax({
+                type: 'post',
+                enctype: 'multipart/form-data',
+                url: "{{route('admin.categories.update')}}",
+                data: formData,
+                processData: false,
+                contentType: false,
+                cache: false,
+                success: function (data) {
+                    if(data.status == true){
+                        $('#success_msg').show();
+                        location.reload();
+                    }
+                }, error: function (reject) {
+                    if (data.status == false) {
+                        $('#error_msg').show();
+                    }
+                    var response = $.parseJSON(reject.responseText);
+                    $.each(response.errors, function (key, val) {
+                        $("#" + key + "_error").text(val[0]);
+                    });
+                }
+            });
+        });
 
-        <div class="form-group col-md-6" style="margin-top :15px;">
-            <label>Photo</label>
-            <input type="file" id="file" name="photo" class="form-control">
-            </div>
-        
-        <div class="form-group" style="margin-top :15px;">
-            <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> Update </button>
-        </div>
-
-    </form><!-- end of form -->
-
-</div><!-- end of box body -->
-
-</div><!-- end of box -->
-</div><!-- end of content wrapper -->
-
-
-@endsection
+    $(function() {
+      $('.dropify').dropify();
+      var drEvent = $('#dropify-event').dropify();
+      drEvent.on('dropify.beforeClear', function(event, element) {
+        return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
+      });
+      drEvent.on('dropify.afterClear', function(event, element) {
+        alert('File deleted');
+      });
+      $('.dropify-fr').dropify({
+        messages: {
+          default: 'Glissez-dÃ©posez un fichier ici ou cliquez',
+          replace: 'Glissez-dÃ©posez un fichier ou cliquez pour remplacer',
+          remove: 'Supprimer',
+          error: 'DÃ©solÃ©, le fichier trop volumineux'
+        }
+      });
+    });
+  </script>

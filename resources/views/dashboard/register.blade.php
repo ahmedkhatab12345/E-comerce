@@ -71,31 +71,43 @@
 </div>
 <div class="col-12">
 <label class="form-label">Full name</label>
-<input type="text" class="form-control form-control-lg @error('email') is-invalid @enderror" name="name" placeholder="John Parker">
-@error('name')
-<div class="invalid-feedback">{{ $message }}</div>
-@enderror
+<input type="text" class="form-control form-control-lg @error('name') is-invalid @enderror" name="name"
+ placeholder="John Parker"  data-validation="required" data-validation-required="required">
+ @error('name')
+    <span class="invalid-feedback" role="alert">
+    <strong>{{ $message }}</strong>
+    </span>
+  @enderror
 </div>
 <div class="col-12">
 <label class="form-label">Email address</label>
-<input type="email" class="form-control form-control-lg @error('email') is-invalid @enderror" name="email" placeholder="name@example.com">
+<input type="email" class="form-control form-control-lg @error('email') is-invalid @enderror" name="email" 
+placeholder="name@example.com"  data-validation="required" data-validation-required="required">
 @error('email')
-<div class="invalid-feedback">{{ $message }}</div>
-@enderror
+    <span class="invalid-feedback" role="alert">
+    <strong>{{ $message }}</strong>
+    </span>
+  @enderror
 </div>
 <div class="col-12">
 <label class="form-label">Password</label>
-<input type="password" class="form-control form-control-lg @error('email') is-invalid @enderror" name="password"placeholder="8+ characters required">
+<input type="password" class="form-control form-control-lg @error('password') is-invalid @enderror" name="password"
+placeholder="8+ characters required"  data-validation="required" data-validation-required="required">
 @error('password')
-<div class="invalid-feedback">{{ $message }}</div>
-@enderror
+    <span class="invalid-feedback" role="alert">
+    <strong>{{ $message }}</strong>
+    </span>
+  @enderror
 </div>
 <div class="col-12">
 <label class="form-label">Photo</label>
-<input class="form-control form-control-lg @error('email') is-invalid @enderror" type="file" id="myFile" name="photo">
+<input class="form-control form-control-lg @error('photo') is-invalid @enderror" type="file" id="myFile" name="photo"
+data-validation="required" data-validation-required="required">
 @error('photo')
-<div class="invalid-feedback">{{ $message }}</div>
-@enderror
+    <span class="invalid-feedback" role="alert">
+    <strong>{{ $message }}</strong>
+    </span>
+  @enderror
 </div>
 <div class="col-12 text-center mt-4">
 <button type="submit" class="btn btn-lg btn-block btn-dark lift text-uppercase">SIGN UP</button>
@@ -377,7 +389,13 @@
 
 
 <script src="{{url('/')}}/assets/js/theme.js"></script>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
+    <script>
+      $.validate({
+        form: 'form'
+      });
+    </script>
 
 </body>
 </html>

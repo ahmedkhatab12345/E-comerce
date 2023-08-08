@@ -24,21 +24,22 @@ class changPasswordRequest extends FormRequest
     public function rules()
     {
         return [
-            'password' => ['required|min:8'],
-            'new_password' => ['required|min:8'],
-            'confirm_password' => ['required|min:8'],
-        
+            'current_password' => 'required|min:6',
+            'password' => 'required|min:6',
+            'password_confirmation' => 'required|same:password|min:6',
         ];
     }
     public function messages()
     {
         return [
+            'current_password.required'=>'كلمه السر مطلوبه',
             'password.required'=>'كلمه السر مطلوبه',
-            'new_password.required'=>'كلمه السر مطلوبه',
-            'confirm_password.required'=>'كلمه السر مطلوبه',
-            'password.min'=>'كلمه السر يجب الا تكون اقل من 8 احرف',
-            'new_password.min'=>'كلمه السر يجب الا تكون اقل من 8 احرف',
-            'confirm_password.min'=>'كلمه السر يجب الا تكون اقل من 8 احرف',
+            'password_confirmation.required'=>'كلمه السر مطلوبه',
+            'current_password.min'=>'كلمه السر يجب الا تكون علي الاقل 6 احرف',
+            'password.min'=>'كلمه السر يجب الا تكون علي الاقل 6 احرف',
+            'password_confirmation.min'=>'كلمه السر يجب الا تكون علي الاقل 6 احرف',
+            'password_confirmation.same'=>'يجب كلمه السر تكون مطابقه لتاكيد كلمه السر',
+
 
         ];
     }
