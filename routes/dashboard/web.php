@@ -25,6 +25,9 @@ Route::group(['namespace'=>'Dashboard','middleware'=>'auth:admin'],function(){
     Route::group(['prefix'=>'admin'],function(){
         Route::resource('brands', BrandsController::class);
         Route::get('/datatable','BrandsController@datatable')->name('admin.brands.datatable');
+        Route::get('delete','BrandsController@destroy')->name('admin.brands.delete');
+        Route::get('edit-brand/{id}','BrandsController@edit')->name('admin.brands.edit');
+        Route::post('update-brand','BrandsController@update')->name('admin.brands.update');
 
         });
 

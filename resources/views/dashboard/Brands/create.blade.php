@@ -70,7 +70,7 @@ style="margin-right: 50px; padding =30px; border:solid 2px #2794EB; border-radiu
         $.ajax({
                 type: 'post',
                 enctype: 'multipart/form-data',
-                url: "{{route('admin.brands.store')}}",
+                url: "{{route('brands.store')}}",
                 data: formData,
                 processData: false,
                 contentType: false,

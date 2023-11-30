@@ -32,14 +32,14 @@ $index=0
             <button type="button" class="btn btn-danger btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 <h2 class="modal-title"id="exampleModalLabel">Edit Brand</h2>
             </div><!-- end of box header -->
-          
-                <div id="editBrand"></div>
-                <div class="alert alert-success" id="success_msg" style="display: none;">
+           
+            <div id="editBrand"></div>
+            <div class="alert alert-success" id="success_msg" style="display: none;">
             تم الحفظ بنجاح
             </div>
-        </div><!-- end of box body -->
-    </div><!-- end of box -->
-</div><!-- end of content wrapper -->
+        </div>
+    </div>
+</div>
 <!-- endEdit_brand -->
 @endsection
 @push('javascripts')
@@ -87,8 +87,8 @@ $index=0
         if(confirm("Are you sure you want to Delete this data?"))
         {
             $.ajax({
-                url:"{{route('brands.destroy', ':id')}}",
-                mehtod:"delete",
+                url:"{{route('admin.brands.delete')}}",
+                mehtod:"get",
                 data:{id:id},
                 success:function(data)
                 {
@@ -110,14 +110,16 @@ $index=0
         $('#editModal').modal('show');
         $.ajax({
             type:"GET",
-            url:"/admin/brands/edit-brands/"+brand_id,
+            url:"/admin/brands/edit-brand/"+brand_id,
             success:function(response) {
                 $("body #editBrand").html(response.return_data);
+
                
             }
         });
      
     }); 
 });
+  
     </script>
 @endpush

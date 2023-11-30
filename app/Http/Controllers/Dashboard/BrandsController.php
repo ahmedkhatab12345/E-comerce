@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\Dashboard;
-
 use App\Http\Controllers\Controller;
 use App\Http\Requests\brandRequest;
 use App\Models\Brand;
@@ -29,13 +28,12 @@ class BrandsController extends Controller
             ->addIndexColumn()
             ->addColumn('action', function ($row) {
             return $btn = '
-            <a  id="'.$row->id.'" class="btn btn-xs btn-primary edit"
-            ><i class="fa fa-edit edit"
-            data-toggle="tooltip" 
-              ></i></a>
+            <a id="'.$row->id.'"
+            class="btn btn-xs btn-primary edit" 
+            data-toggle="tooltip"  data-id="'.$row->id.'"><i class="fa fa-edit"></i></a>
         
-            <a id="'.$row->id.'" 
-            class="btn btn-sm btn-danger delete"><i class="fa fa-trash"></i></a>';
+             <a id="'.$row->id.'" 
+               class="btn btn-sm btn-danger delete"><i class="fa fa-trash"></i></a> ';
             
             })
             ->addColumn('photo', function ($data) { 
@@ -44,16 +42,18 @@ class BrandsController extends Controller
          })  
             ->rawColumns(['action','photo'])
             ->make(true);
-
+        
             }
 
-    public function store (brandRequest $request ,UploadService $upload){
-        
+    public function store (brandRequest $request){
+
         //store brand by using ajax
         
-          // save photo
-
-         $file_name = $upload->uploadImage($request->photo,'images/brands');
+        //  // save photo
+         $file_extention = $request->photo ->getClientOriginalExtension();
+         $file_name=time().'.'.$file_extention;
+         $path='images/brands';
+         $request->photo ->move($path,$file_name);
 
         $brands = $request->all();
         $create = Brand::create([
@@ -71,8 +71,6 @@ class BrandsController extends Controller
           'status' => false,
           'msg' => 'فشل الحفظ',
       ]);
-  
-      
     }
     public function edit ($id){
         $brands =Brand::find($id);
@@ -82,16 +80,17 @@ class BrandsController extends Controller
             'status'=>200,
             'brands'=>$brands,
             'return_data'=>$return_data,
+
         ]);
         
     }
-    public function update(Request $request){
+    public function update(Request $request,UploadService $upload){
         $brands = Brand::find($request->brand_id);
         $brands ->update($request->all());
         if (!$brands)
             return response()->json([
                 'status' => false,
-                'msg' => 'هذ البراند غير موجود',
+                'msg' => 'هذ الاسليدر غير موجود',
             ]);
          
         //update data
@@ -112,16 +111,15 @@ class BrandsController extends Controller
             'status' => true,
             'msg' => 'تم  التعديل بنجاح',
         ]);
-      
     }
 
-public function destroy(Request $request,$id){
-    $brands = Brand::find($request->input('id'));
-            if($brands->delete())
-            {
-                echo 'This Brand Deleted Succefuly';
-            }
+public function destroy(Request $request){
+$brands = Brand::find($request->input('id'));
+        if($brands->delete())
+        {
+            echo 'This Brand Deleted Succefuly';
         }
+    }
+ 
 
-       
 }

@@ -10,6 +10,6 @@ public function uploadImage($photo,$folder){
     $photo ->move($path, $file_name);
     return $file_name;
 
-    }
+}
 
 }
